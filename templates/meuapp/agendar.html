@@ -1,0 +1,25 @@
+{% extends 'meuapp/base.html' %}
+
+{% block conteudo %}
+<div class="flex justify-center items-center gap-4 p-10 border-2 border-gray-700 bg-gray-800 rounded-lg shadow-md">
+    <form method="post" class="flex flex-col gap-4">
+        {% csrf_token %}
+        <label class="text-white">Profissional</label>
+        {{ form.profissional }}
+
+        <label class="text-white">Data e Hora</label>
+        {{ form.data_hora }}
+
+        <label class="text-white">Nome</label>
+        {{ form.nome_cliente }}
+
+        <label class="text-white">WhatsApp</label>
+        {{ form.whatsapp }}
+
+        <label class="text-white">Email</label>
+        {{ form.email }}
+
+        <button type="submit" class="bg-purple-600 text-white hover:bg-pink-500 px-6 py-3 rounded mt-4 w-fit mx-auto">Salvar</button>
+    </form>
+</div>
+{% endblock %}

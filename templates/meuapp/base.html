@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block titulo %}AgendaPro{% endblock titulo %}</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"/>
+    {% block style %}{% endblock style %}
+</head>
+<body class="flex flex-col min-h-screen bg-gray-900">
+    <header>
+        
+        <nav class=" fixed w-full z-20 top-0 start-0 p-4">
+            <a href="{% url 'home' %}">
+                <span class="self-center text-xl text-purple-600 font-semibold whitespace-nowrap">AgendaPro</span>
+            </a>
+        </nav>
+    </header>
+    <main class="flex flex-col flex-1 justify-center items-center">
+        {% block conteudo %}
+
+        {% endblock conteudo %}
+    </main>
+
+
+<footer class="rounded-lg shadow-sm border border-gray-700 m-4">
+    <div class="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
+      <span class="text-sm text-gray-300 sm:text-center">© 2026 AgendaPro — Desenvolvido por Matheus</span>
+    <ul class="flex flex-wrap items-center mt-3 text-xl font-medium text-gray-300 sm:mt-0">
+        <li>
+            <a href="https://www.linkedin.com/in/matheus-ferreira-2718b8310/" class="hover:underline me-4 md:me-6"><i class="fa-brands fa-linkedin"></i></a>
+        </li>
+        <li>
+            <a href="https://github.com/matheusferreiradsilva" class="hover:underline me-4 md:me-6"><i class="fa-brands fa-github"></i></a>
+        </li>
+        <li>
+            <a href="https://www.instagram.com/_matheus_ferreira_silva/" class="hover:underline me-4 md:me-6"><i class="fa-brands fa-instagram"></i></a>
+        </li>
+    </ul>
+    </div>
+</footer>
+
+    {% block script %}{% endblock script %}
+</body>
+</html>

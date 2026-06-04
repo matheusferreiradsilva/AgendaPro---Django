@@ -1,0 +1,35 @@
+{% extends 'meuapp/base.html' %}
+
+{% block conteudo %}
+
+<div class="flex justify-center items-center gap-4 p-10 border-2 border-gray-300 bg-white rounded-lg shadow-md">
+    <form method="get">
+        <input type="text" name="q" placeholder="Buscar cliente...">
+        <button type="submit">Buscar</button>
+    </form>
+    <table>
+        <thead>
+            <tr>
+                <th>Cliente</th>
+                <th>Profissional</th>
+                <th>Status do Agendamento</th>
+                <th>Data e Hora</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for agendamento in agendamentos %}
+            <tr>
+                <td>{{ agendamento.nome }}</td>
+                <td>{{ agendamento.profissional }}</td>
+                <td>{{ agendamento.status }}</td>
+                <td>{{ agendamento.data_hora|date:"d/m/Y H:i" }}</td>
+                <td><a href="{% url 'editar_agendamento' agendamento.pk %}">Editar</a></td>
+                <td><a href="{% url 'excluir_agendamento' agendamento.pk %}">Excluir</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+{% endblock %}
