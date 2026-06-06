@@ -80,7 +80,7 @@ python manage.py runserver
 
 ## 🔗 Acesse o Projeto
 
-> [*Link em breve*](https://agendapro-django.onrender.com)
+> [*AgendaPro*](https://agendapro-django.onrender.com)
 
 ---
 
