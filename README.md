@@ -42,9 +42,11 @@ Sistema de agendamentos desenvolvido com **Django** e **PostgreSQL**, criado com
 
 ## 🖥️ Preview
 
-> <img width="1913" height="951" alt="print agendapro" src="https://github.com/user-attachments/assets/4d5d15b8-786e-4b11-a3e7-50d912a91c6b" />
-<img width="1914" height="952" alt="print agendapro 2" src="https://github.com/user-attachments/assets/3672c708-6287-4372-bc49-402d93d92c7c" />
 <img width="1914" height="955" alt="print agendapro 3" src="https://github.com/user-attachments/assets/8437dac5-69f4-4326-aec0-8a7b979e2215" />
+<img width="1914" height="952" alt="print agendapro 2" src="https://github.com/user-attachments/assets/3672c708-6287-4372-bc49-402d93d92c7c" />
+<img width="1913" height="951" alt="print agendapro" src="https://github.com/user-attachments/assets/4d5d15b8-786e-4b11-a3e7-50d912a91c6b" />
+
+
 
 
 ---
