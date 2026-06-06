@@ -1,7 +1,8 @@
 from django.shortcuts import render
+from django.contrib import messages
 from .models import Agendamento, Cliente
 from django.shortcuts import redirect
-from .forms import FormularioAgendamento, CadastrarProfissional
+from .forms import FormularioAgendamento, CadastrarProfissional, FormularioEditar
 from django.views.generic.edit import UpdateView, DeleteView
 from django.urls import reverse_lazy
 # Create your views here.
@@ -38,7 +39,8 @@ def agendar(request):
             agendamento = form.save(commit=False)
             agendamento.nome = cliente
             agendamento.save()
-            return redirect('home')
+            messages.success(request, 'Agendamento feito com sucesso!')
+            return redirect('agendamentos')
 
     #se for GET ou qualquer outro metodo abre um formulario em branco
     else:
@@ -60,11 +62,22 @@ def cadastro_profissional(request):
 
 class AgendamentoUpdate(UpdateView):
     model = Agendamento
-    fields = ['profissional', 'data_hora', 'status']
+    form_class = FormularioEditar
     template_name = 'meuapp/editar_agendamento.html'
     success_url = reverse_lazy('agendamentos')
+
+    def form_valid(self, form):
+        # Em CBVs, usamos 'self.request' em vez de apenas 'request'
+        messages.success(self.request, 'Agendamento editado!')
+        
+        # Chama o comportamento padrão que salva o formulário e redireciona para o success_url
+        return super().form_valid(form)
 
 class ApagarAgendamento(DeleteView):
     model = Agendamento
     template_name = 'meuapp/excluir_agendamento.html'
     success_url = reverse_lazy('agendamentos')
+
+    def form_valid(self, form):
+        messages.success(self.request, 'Agendamento excluído!')
+        return super().form_valid(form)

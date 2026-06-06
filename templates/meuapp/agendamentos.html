@@ -1,35 +1,90 @@
 {% extends 'meuapp/base.html' %}
-
+{% block style %}
+<style>
+    main {
+        align-items: center;
+    }
+</style>
+{% endblock %}
 {% block conteudo %}
 
-<div class="flex justify-center items-center gap-4 p-10 border-2 border-gray-300 bg-white rounded-lg shadow-md">
-    <form method="get">
-        <input type="text" name="q" placeholder="Buscar cliente...">
-        <button type="submit">Buscar</button>
+<div class="flex flex-col justify-center md:items-center gap-4 p-2 md:p-10 border-2 border-gray-700 bg-gray-800 rounded-lg overflow-x-auto shadow-md">
+    <form method="get" class="flex justify-center">
+        <input class="text-white bg-gray-700" type="text" name="q" placeholder="Buscar cliente...">
+        <button class="bg-gray-50 border-2 p-1 rounded-full hover:bg-gray-200 hover:font-bold" type="submit">Buscar</button>
     </form>
-    <table>
-        <thead>
-            <tr>
-                <th>Cliente</th>
-                <th>Profissional</th>
-                <th>Status do Agendamento</th>
-                <th>Data e Hora</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for agendamento in agendamentos %}
-            <tr>
-                <td>{{ agendamento.nome }}</td>
-                <td>{{ agendamento.profissional }}</td>
-                <td>{{ agendamento.status }}</td>
-                <td>{{ agendamento.data_hora|date:"d/m/Y H:i" }}</td>
-                <td><a href="{% url 'editar_agendamento' agendamento.pk %}">Editar</a></td>
-                <td><a href="{% url 'excluir_agendamento' agendamento.pk %}">Excluir</a></td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+
+        {% if messages %}
+            <!-- Container dos balões (fixo no canto superior direito) -->
+            <div class="fixed top-4 right-4 z-50 space-y-3 pointer-events-none">
+                {% for message in messages %}
+                    <!-- Balão individual -->
+                    <div class="django-toast p-4 rounded-xl shadow-lg border flex items-center min-w-[300px] transition-all duration-500 ease-in-out opacity-100 translate-y-0 pointer-events-auto
+                        {% if message.tags == 'success' %} bg-white border-green-500 text-gray-800 border-l-4 {% endif %}">
+                        
+                        <div class="flex-1">
+                            <p class="text-sm font-medium">{{ message }}</p>
+                        </div>
+                        
+                        <!-- Botão X para fechar manualmente se o usuário quiser -->
+                        <button onclick="this.parentElement.remove()" class="ml-4 text-gray-400 hover:text-gray-600 transition-colors">
+                            &times;
+                        </button>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+
+    <div class="md:flex md:justify-center">
+        <table class="text-left text-gray-500">
+            <thead class="text-xs bg-gray-600 text-white uppercase">
+                <tr class="">
+                    <th scope="col" class="p-3 md:px-6 md:py-3">Cliente</th>
+                    <th scope="col" class="p-3 md:px-6 md:py-3">Profissional</th>
+                    <th scope="col" class="p-3 md:px-6 md:py-3">Status do Agendamento</th>
+                    <th scope="col" class="p-3 md:px-6 md:py-3">Data e Hora</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for agendamento in agendamentos %}
+                    <tr class="bg-gray-700 text-white">
+                        <th scope="row" class="px-6 py-4 font-medium md:whitespace-nowrap">{{ agendamento.nome}}</th>
+                        <td class="px-6 py-3">{{ agendamento.profissional }}</td>
+                        <td class="px-6 py-3">{{ agendamento.status }}</td>
+                        <td class="px-6 py-3">{{ agendamento.data_hora|date:"d/m/Y H:i" }}</td>
+                        <td class="p-2 font-semibold text-green-700 bg-green-100 hover:bg-green-200 rounded-full"><a href="{% url 'editar_agendamento' agendamento.pk %}">Editar</a></td>
+                        <td class="p-2 font-semibold text-red-700 bg-red-100 hover:bg-red-200 rounded-full"><a href="{% url 'excluir_agendamento' agendamento.pk %}">Excluir</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
 </div>
 
 {% endblock %}
+
+{% block script %}
+    <!-- Script para fazer sumir sozinho após 4 segundos -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Seleciona todos os balões de mensagem
+            const toasts = document.querySelectorAll('.django-toast');
+            
+            toasts.forEach((toast) => {
+                // Após 4 segundos (4000ms), inicia o efeito de sumir
+                setTimeout(() => {
+                    // Altera as classes do Tailwind para criar o efeito visual de fade-out
+                    toast.classList.replace('opacity-100', 'opacity-0');
+                    toast.classList.replace('translate-y-0', '-translate-y-2');
+                    
+                    // Após a animação terminar (500ms), remove o elemento do HTML
+                    setTimeout(() => {
+                        toast.remove();
+                    }, 500);
+                }, 4000);
+            });
+        });
+    </script>
+{% endblock script %}

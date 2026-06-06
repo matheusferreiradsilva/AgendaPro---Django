@@ -1,11 +1,11 @@
 {% extends 'meuapp/base.html' %}
 
 {% block conteudo %}
-<div class="flex justify-center items-center gap-4 p-10 border-2 border-gray-300 bg-white rounded-lg shadow-md">
-    <form method="post">
+<div class="p-10 m-2 border-2 border-gray-700 bg-gray-800 rounded-lg shadow-md">
+    <form class="flex flex-col gap-4" method="post">
         {% csrf_token %}
-        <p>Deseja excluir o agendamento de {{ object.nome }}?</p>
-        <button type="submit">Excluir</button>
+        <p class="text-white">Deseja excluir o agendamento de {{ object.nome }}?</p>
+        <button class="bg-gray-50 border-2 p-1 mx-auto rounded-full hover:bg-gray-200 hover:font-bold" type="submit">Excluir</button>
     </form>
 </div>
 {% endblock %}

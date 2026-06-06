@@ -1,11 +1,13 @@
 {% extends 'meuapp/base.html' %}
 
 {% block conteudo %}
-<div class="flex justify-center items-center gap-4 p-10 border-2 border-gray-300 bg-white rounded-lg shadow-md">
-    <form method="post">
+<div class="p-10 border-2 border-gray-700 bg-gray-800 rounded-lg shadow-md">
+    <form method="post" class="flex flex-col gap-4">
         {% csrf_token %}
-        {{ form }}
-        <button type="submit">Salvar</button>
+        {{ form.profissional }}
+        {{ form.data_hora }}
+        {{ form.status }}
+        <button class="bg-gray-50 border-2 p-1 rounded-full hover:bg-gray-200 hover:font-bold" type="submit">Salvar</button>
     </form>
 </div>
 {% endblock %}
