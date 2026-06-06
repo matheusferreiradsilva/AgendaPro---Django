@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: AGENDAPRO - DJANGO
+    env: python
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn agendamento.wsgi:application"
