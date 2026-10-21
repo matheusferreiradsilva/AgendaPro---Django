@@ -14,28 +14,6 @@
         <button class="bg-gray-50 border-2 p-1 rounded-full hover:bg-gray-200 hover:font-bold" type="submit">Buscar</button>
     </form>
 
-        {% if messages %}
-            <!-- Container dos balões (fixo no canto superior direito) -->
-            <div class="fixed top-4 right-4 z-50 space-y-3 pointer-events-none">
-                {% for message in messages %}
-                    <!-- Balão individual -->
-                    <div class="django-toast p-4 rounded-xl shadow-lg border flex items-center min-w-[300px] transition-all duration-500 ease-in-out opacity-100 translate-y-0 pointer-events-auto
-                        {% if message.tags == 'success' %} bg-white border-green-500 text-gray-800 border-l-4 {% endif %}">
-                        
-                        <div class="flex-1">
-                            <p class="text-sm font-medium">{{ message }}</p>
-                        </div>
-                        
-                        <!-- Botão X para fechar manualmente se o usuário quiser -->
-                        <button onclick="this.parentElement.remove()" class="ml-4 text-gray-400 hover:text-gray-600 transition-colors">
-                            &times;
-                        </button>
-                    </div>
-                {% endfor %}
-            </div>
-        {% endif %}
-
-
     <div class="md:flex md:justify-center">
         <table class="text-left text-gray-500">
             <thead class="text-xs bg-gray-600 text-white uppercase">
@@ -56,10 +34,24 @@
                         <td class="p-2 font-semibold text-green-700 bg-green-100 hover:bg-green-200 rounded-full"><a href="{% url 'editar_agendamento' agendamento.pk %}">Editar</a></td>
                         <td class="p-2 font-semibold text-red-700 bg-red-100 hover:bg-red-200 rounded-full"><a href="{% url 'excluir_agendamento' agendamento.pk %}">Excluir</a></td>
                     </tr>
+                {% empty %}
+                    <tr><td colspan="6" class="p-6 text-center text-gray-300">Nenhum agendamento encontrado.</td></tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
+
+    {% if agendamentos.paginator.num_pages > 1 %}
+        <nav class="flex gap-3 text-white" aria-label="Paginação">
+            {% if agendamentos.has_previous %}
+                <a href="?q={{ request.GET.q|urlencode }}&page={{ agendamentos.previous_page_number }}" class="hover:underline">Anterior</a>
+            {% endif %}
+            <span>Página {{ agendamentos.number }} de {{ agendamentos.paginator.num_pages }}</span>
+            {% if agendamentos.has_next %}
+                <a href="?q={{ request.GET.q|urlencode }}&page={{ agendamentos.next_page_number }}" class="hover:underline">Próxima</a>
+            {% endif %}
+        </nav>
+    {% endif %}
 
 </div>
 
@@ -71,14 +63,14 @@
         document.addEventListener('DOMContentLoaded', () => {
             // Seleciona todos os balões de mensagem
             const toasts = document.querySelectorAll('.django-toast');
-            
+
             toasts.forEach((toast) => {
                 // Após 4 segundos (4000ms), inicia o efeito de sumir
                 setTimeout(() => {
                     // Altera as classes do Tailwind para criar o efeito visual de fade-out
                     toast.classList.replace('opacity-100', 'opacity-0');
                     toast.classList.replace('translate-y-0', '-translate-y-2');
-                    
+
                     // Após a animação terminar (500ms), remove o elemento do HTML
                     setTimeout(() => {
                         toast.remove();

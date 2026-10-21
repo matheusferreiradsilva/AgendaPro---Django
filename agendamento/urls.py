@@ -21,5 +21,5 @@ from django.shortcuts import redirect
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('meuapp/', include('meuapp.urls') ),
-    path ('', lambda request: redirect('home')) #lambda request: redirect('home') substitui a necessidade de criar uma view. lambda é uma função anonima descartavel
+    path('', lambda request: redirect('home'))
 ]

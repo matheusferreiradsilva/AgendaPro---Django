@@ -4,6 +4,7 @@
 <div class="flex justify-center items-center gap-4 p-10 border-2 border-gray-300 bg-white rounded-lg shadow-md">
     <form action="" method="post">
         {% csrf_token %}
+        {{ form.non_field_errors }}
         {{ form }}
         <input type="submit" value="Submit">
     </form>
