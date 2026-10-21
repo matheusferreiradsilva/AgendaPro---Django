@@ -1,0 +1,15 @@
+{% extends 'meuapp/base.html' %}
+
+{% block conteudo %}
+<div class="p-10 border-2 border-gray-700 bg-gray-800 rounded-lg shadow-md">
+    <form method="post" class="flex flex-col gap-4 text-white">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        {{ form.username.label_tag }}
+        {{ form.username }}
+        {{ form.password.label_tag }}
+        {{ form.password }}
+        <button type="submit" class="bg-purple-600 text-white px-6 py-3 rounded">Entrar</button>
+    </form>
+</div>
+{% endblock %}

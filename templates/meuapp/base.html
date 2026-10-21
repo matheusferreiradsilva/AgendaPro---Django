@@ -10,11 +10,19 @@
 </head>
 <body class="flex flex-col min-h-screen bg-gray-900">
     <header>
-        
+
         <nav class=" fixed w-full z-20 top-0 start-0 p-4">
             <a href="{% url 'home' %}">
                 <span class="self-center text-xl text-purple-600 font-semibold whitespace-nowrap">AgendaPro</span>
             </a>
+            <div class="float-right text-sm text-gray-300">
+                {% if user.is_authenticated %}
+                    <span class="mr-3">{{ user.username }}</span>
+                    <a href="{% url 'logout' %}" class="hover:underline">Sair</a>
+                {% else %}
+                    <a href="{% url 'login' %}" class="hover:underline">Entrar</a>
+                {% endif %}
+            </div>
         </nav>
     </header>
     <main class="flex flex-col flex-1 justify-center items-center">
@@ -22,6 +30,16 @@
 
         {% endblock conteudo %}
     </main>
+
+    {% if messages %}
+        <div class="fixed top-16 right-4 z-50 space-y-3">
+            {% for message in messages %}
+                <div class="p-4 rounded-xl shadow-lg border border-green-500 bg-white text-gray-800">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
 
 
 <footer class="rounded-lg shadow-sm border border-gray-700 m-4">

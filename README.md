@@ -68,11 +68,17 @@ pip install -r requirements.txt
 # Configure as variáveis de ambiente
 # Crie um arquivo .env na raiz com as seguintes variáveis:
 SECRET_KEY=sua_secret_key
+DEBUG=False
+ALLOWED_HOSTS=seu-dominio.onrender.com
+CSRF_TRUSTED_ORIGINS=https://seu-dominio.onrender.com
 DB_NAME=postgres
 DB_USER=seu_usuario
 DB_PASSWORD=sua_senha
 DB_HOST=seu_host
 DB_PORT=5432
+
+# Em desenvolvimento, se as variáveis DB_* não forem definidas,
+# o projeto usa automaticamente um banco SQLite local (db.sqlite3).
 
 # Rode as migrações
 python manage.py migrate
@@ -80,6 +86,9 @@ python manage.py migrate
 # Inicie o servidor
 python manage.py runserver
 ```
+
+O cadastro de profissionais, a listagem, a edição e a exclusão de agendamentos
+exigem um usuário staff criado com `python manage.py createsuperuser`.
 
 ---
 
